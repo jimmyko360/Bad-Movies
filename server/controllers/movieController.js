@@ -16,10 +16,13 @@ module.exports = {
 
     // and sort them by horrible votes using the search parameters in the API
 
-    axios.get('https://api.themoviedb.org/3/discover/movie?api_key=3153257f2189729bf3d0a8c223306f17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=14')
-    //need to interpolate genre id into get request
-    .then((results) => {res.status(200).json(results)})
-    .catch((err) =>{return err;})
+    apiHelpers.getMoviesByGenre(req.body.id, (err, results) => {
+      if (err) {
+        throw err;
+      } else {
+        res.status(200).json(results);
+      }
+    })
     //may have to send back only results.results
     //can also apply pagination filter
   },
