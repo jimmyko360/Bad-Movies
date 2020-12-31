@@ -12,8 +12,7 @@ class Search extends React.Component {
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
     axios.get('/movies/genres')
-    .then((results)=>{console.log(results);
-      this.setState({genres:results.data})})
+    .then((results)=>{this.setState({genres:results.data})})
     .catch((error)=>{throw error})
   }
 
@@ -27,6 +26,7 @@ class Search extends React.Component {
         {/* How can you tell which option has been selected from here? */}
 
         <select>
+          {/* you have to return the output of each map iteration */}
           {this.state.genres.map((genre)=>(<option value = {genre.name}>{genre.name}</option>))}
         </select>
         <br/><br/>
