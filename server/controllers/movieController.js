@@ -43,9 +43,23 @@ module.exports = {
 
   saveMovie: (req, res) => {
     //this will use the model layer
+    movieModel.addToFavorites([req.body.name], (err, results) => {
+      if (err) {
+        throw err;
+      } else {
+        res.status(201).json(results)
+      }
+    })
   },
 
   deleteMovie: (req, res) => {
     //this will use the model layer
+    movieModel.deleteFromFavorites([req.body.name], (err, results) => {
+      if (err) {
+        throw err;
+      } else {
+        res.status(204).json(results)
+      }
+    })
   }
 }
