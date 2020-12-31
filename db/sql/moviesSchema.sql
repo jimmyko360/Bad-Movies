@@ -1,1 +1,11 @@
 -- SET UP SCHEMA HERE
+
+CREATE DATABASE movies;
+
+USE movies;
+
+CREATE TABLE favorites(
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255),
+  genre VARCHAR(50)
+);
