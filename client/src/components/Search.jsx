@@ -5,15 +5,24 @@ class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      genres: []
+      genres: [],
+      selected: 12
     };
     this.getGenres = this.getGenres.bind(this);
+    this.selectGenre = this.selectGenre.bind(this);
   }
+
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
     axios.get('/movies/genres')
     .then((results)=>{this.setState({genres:results.data})})
     .catch((error)=>{throw error})
+  }
+
+  //how can I configure this component without adding another state property?
+  selectGenre(event) {
+    console.log(event.target.id)
+    this.setState({selected: event.target.id})
   }
 
   render() {
@@ -27,11 +36,12 @@ class Search extends React.Component {
 
         <select>
           {/* you have to return the output of each map iteration */}
-          {this.state.genres.map((genre)=>(<option value = {genre.name}>{genre.name}</option>))}
+          {/* onClick does not work on options tags? */}
+          {this.state.genres.map((genre)=>(<option onClick={this.selectGenre} id={genre.id}>{genre.name}</option>))}
         </select>
         <br/><br/>
-
-        <button>Search</button>
+        {/* search button is not working */}
+        <button onClick={()=>{this.props.getMovies(14)}}>Search</button>
 
       </div>
     );

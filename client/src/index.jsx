@@ -18,16 +18,19 @@ class App extends React.Component {
     this.swapFavorites = this.swapFavorites.bind(this);
     this.getMovies = this.getMovies.bind(this);
   }
-
-  getMovies() {
+// get request using genre ID as a filter is not working here or on componentDidMount
+  getMovies(id) {
     // make an axios request to your server on the GET SEARCH endpoint
-    axios.get('/movies/search')
+    axios.get('/movies/search',{id: id})
     .then((results)=>{this.setState({movies:results.data})})
     .catch((error)=>{throw error;})
   }
 
-  saveMovie() {
+  saveMovie(event) {
     // same as above but do something diff
+    // axios.post('/movies/save', {name: event.target.id})
+    // .then(axios.get('/movies/'))
+    // .catch((error)=>{throw error})
   }
 
   deleteMovie() {
@@ -42,7 +45,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getMovies();
+    this.getMovies(14);
   }
 
   render () {
@@ -51,7 +54,7 @@ class App extends React.Component {
         <header className="navbar"><h1>Bad Movies</h1></header>
 
         <div className="main">
-          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves}/>
+          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
           <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
         </div>
       </div>
