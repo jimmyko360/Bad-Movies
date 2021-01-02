@@ -11,14 +11,15 @@ class App extends React.Component {
   	super(props)
   	this.state = {
       movies: [{deway: "movies"}],
-      favorites: [{deway: "favorites"}],
+      favorites: [],
       showFaves: false,
     };
 
     this.swapFavorites = this.swapFavorites.bind(this);
     this.getMovies = this.getMovies.bind(this);
+    this.addToFaves = this.addToFaves.bind(this);
   }
-// get request using genre ID as a filter is not working here or on componentDidMount
+
   getMovies(id) {
     // make an axios request to your server on the GET SEARCH endpoint
     axios.get(`/movies/search/${id}`)
@@ -28,6 +29,11 @@ class App extends React.Component {
     .catch((error)=>{throw error;})
   }
 
+  addToFaves(movie) {
+    this.setState({favorites:[movie,...this.state.favorites]})
+    console.log('movie clicked:', movie.original_title)
+  }
+
   saveMovie(event) {
     // same as above but do something diff
     // axios.post('/movies/save', {name: event.target.id})
@@ -35,8 +41,10 @@ class App extends React.Component {
     // .catch((error)=>{throw error})
   }
 
-  deleteMovie() {
+  deleteMovie(movie) {
     // same as above but do something diff
+    this.state.favorites
+    this.setState({favorites:[]})
   }
 
   swapFavorites() {
@@ -44,10 +52,11 @@ class App extends React.Component {
     this.setState({
       showFaves: !this.state.showFaves
     });
+    // console.log('state:', this.state)
   }
 
   componentDidMount() {
-    this.getMovies(16);
+    this.getMovies(28);
   }
 
   render () {
@@ -57,7 +66,7 @@ class App extends React.Component {
 
         <div className="main">
           <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
-          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
+          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} addToFaves={this.addToFaves}/>
         </div>
       </div>
     );

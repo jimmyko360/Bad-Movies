@@ -18,6 +18,8 @@ class Search extends React.Component {
     .catch((error)=>{throw error})
   }
 
+  //is there a way to do this without getElementByID?
+  //what are other ways that I can pull information out of select/form tags?
   getGenreId(callback) {
     let genre = document.getElementById('selectedgenre').value;
     for (let x = 0; x < this.state.genres.length; x++) {
