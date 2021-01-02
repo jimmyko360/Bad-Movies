@@ -10,4 +10,7 @@ router.get('/genres', movieController.getGenres)
 router.post('/save', movieController.saveMovie)
 router.delete('/delete', movieController.deleteMovie)
 
+//how would I accomplish this without a get request to the database?
+router.get('/save', movieController.getFavorites)
+
 module.exports = router;

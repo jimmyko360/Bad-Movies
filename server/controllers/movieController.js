@@ -62,5 +62,16 @@ module.exports = {
         res.status(204).json(results)
       }
     })
+  },
+
+  getFavorites: (req, res) => {
+    movieModel.getFavesFromDB((err, results)=>{
+      if (err) {
+        throw err;
+      } else {
+        // console.log('faveDB results:', results[0].id)
+        res.status(200).json(results)
+      }
+    })
   }
 }

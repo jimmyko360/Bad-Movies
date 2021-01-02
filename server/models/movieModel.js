@@ -26,6 +26,16 @@ module.exports = {
         callback(null, results);
       }
     })
+  },
+
+  getFavesFromDB: function(callback) {
+    sqlDb.connection.query('SELECT * FROM favorites', (err, results) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, results);
+      }
+    })
   }
 
 }
