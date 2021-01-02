@@ -6,10 +6,9 @@ class Search extends React.Component {
     super(props)
     this.state = {
       genres: [],
-      selected: 12
     };
     this.getGenres = this.getGenres.bind(this);
-    this.selectGenre = this.selectGenre.bind(this);
+    this.getGenreId = this.getGenreId.bind(this);
   }
 
   getGenres() {
@@ -19,10 +18,13 @@ class Search extends React.Component {
     .catch((error)=>{throw error})
   }
 
-  //how can I configure this component without adding another state property?
-  selectGenre(event) {
-    console.log(event.target.id)
-    this.setState({selected: event.target.id})
+  getGenreId(callback) {
+    let genre = document.getElementById('selectedgenre').value;
+    for (let x = 0; x < this.state.genres.length; x++) {
+      if (this.state.genres[x].name === genre) {
+        callback(this.state.genres[x].id);
+      }
+    }
   }
 
   render() {
@@ -34,14 +36,14 @@ class Search extends React.Component {
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
 
-        <select>
+        <select id='selectedgenre'>
           {/* you have to return the output of each map iteration */}
           {/* onClick does not work on options tags? */}
-          {this.state.genres.map((genre)=>(<option onClick={this.selectGenre} id={genre.id}>{genre.name}</option>))}
+          {this.state.genres.map((genre)=>(<option key={genre.id}>{genre.name}</option>))}
         </select>
         <br/><br/>
         {/* search button is not working */}
-        <button onClick={()=>{this.props.getMovies(14)}}>Search</button>
+        <button onClick={()=>{this.getGenreId(this.props.getMovies)}}>Search</button>
 
       </div>
     );
