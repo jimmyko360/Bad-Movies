@@ -17,11 +17,11 @@ class App extends React.Component {
 
     this.swapFavorites = this.swapFavorites.bind(this);
     this.getMovies = this.getMovies.bind(this);
-    this.addToFaves = this.addToFaves.bind(this);
+    this.saveMovie = this.saveMovie.bind(this);
+    this.deleteMovie = this.deleteMovie.bind(this);
   }
 
   getMovies(id) {
-    // make an axios request to your server on the GET SEARCH endpoint
     axios.get(`/movies/search/${id}`)
     .then((results)=>{
       this.setState({movies:results.data})})
@@ -29,22 +29,27 @@ class App extends React.Component {
     .catch((error)=>{throw error;})
   }
 
-  addToFaves(movie) {
-    this.setState({favorites:[movie,...this.state.favorites]})
-    console.log('movie clicked:', movie.original_title)
-  }
-
-  saveMovie(event) {
-    // same as above but do something diff
-    // axios.post('/movies/save', {name: event.target.id})
-    // .then(axios.get('/movies/'))
-    // .catch((error)=>{throw error})
+  saveMovie(movie) {
+    axios.post('/movies/save', {
+      poster_path: movie.poster_path,
+      original_title: JSON.stringify(movie.original_title),
+      release_date: movie.release_date,
+      vote_average: movie.vote_average,
+      genre_ids: JSON.stringify(movie.genre_ids),
+      id: movie.id
+    })
+    .then(axios.get('/movies/save')
+    .then((results)=>{console.log('get favorites:', results); this.setState({favorites:results.data})})
+    .catch(err=>{throw err}))
+    .catch((error)=>{throw error})
   }
 
   deleteMovie(movie) {
-    // same as above but do something diff
-    this.state.favorites
-    this.setState({favorites:[]})
+    axios.delete('/movies/delete', {id: movie.id})
+    .then(axios.get('/movies/save')
+    .then((results)=>{this.setState({favorites:results.data})})
+    .catch(err=>{throw err}))
+    .catch(err=>{throw err})
   }
 
   swapFavorites() {
@@ -57,6 +62,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getMovies(28);
+    axios.get('/movies/save')
+    .then((results)=>{this.setState({favorites:results.data})})
+    .catch(err=>{throw err});
   }
 
   render () {
@@ -66,7 +74,7 @@ class App extends React.Component {
 
         <div className="main">
           <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
-          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} addToFaves={this.addToFaves}/>
+          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves} saveMovie={this.saveMovie} deleteMovie={this.deleteMovie}/>
         </div>
       </div>
     );

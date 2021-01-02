@@ -44,7 +44,14 @@ module.exports = {
 
   saveMovie: (req, res) => {
     //this will use the model layer
-    movieModel.addToFavorites([req.body.name], (err, results) => {
+    movieModel.addToFavorites([
+      req.body.poster_path,
+      req.body.original_title,
+      req.body.release_date,
+      req.body.vote_average,
+      req.body.genre_ids,
+      req.body.id
+    ], (err, results) => {
       if (err) {
         throw err;
       } else {
@@ -55,7 +62,7 @@ module.exports = {
 
   deleteMovie: (req, res) => {
     //this will use the model layer
-    movieModel.deleteFromFavorites([req.body.name], (err, results) => {
+    movieModel.deleteFromFavorites([req.body.id], (err, results) => {
       if (err) {
         throw err;
       } else {

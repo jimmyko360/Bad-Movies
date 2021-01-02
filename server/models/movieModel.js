@@ -9,7 +9,7 @@ const sqlDb = require('../../db/sql');
 module.exports = {
   addToFavorites: function(params, callback) {
     //although query is async, it does NOT return a promise so you can't do the chaining
-    sqlDb.connection.query('INSERT INTO favorites (name) VALUES (?)', params, (err, results) => {
+    sqlDb.connection.query('INSERT INTO favorites (poster_path, original_title, release_date, vote_average, genre_ids, id) VALUES (?, ?, ?, ?, ?, ?)', params, (err, results) => {
       if (err) {
         callback(err);
       } else {
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   deleteFromFavorites: function(params, callback) {
-    sqlDb.connection.query('DELETE FROM favorites WHERE name = ?', params, (err, results) => {
+    sqlDb.connection.query('DELETE FROM favorites WHERE id = ?', params, (err, results) => {
       if (err) {
         callback(err);
       } else {
