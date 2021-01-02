@@ -16,10 +16,11 @@ module.exports = {
 
     // and sort them by horrible votes using the search parameters in the API
 
-    apiHelpers.getMoviesByGenre(req.body.id, (err, results) => {
+    apiHelpers.getMoviesByGenre(req.params.id, (err, results) => {
       if (err) {
         throw err;
       } else {
+        // console.log('req',req.params)
         res.status(200).json(results);
       }
     })

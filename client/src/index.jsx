@@ -21,8 +21,10 @@ class App extends React.Component {
 // get request using genre ID as a filter is not working here or on componentDidMount
   getMovies(id) {
     // make an axios request to your server on the GET SEARCH endpoint
-    axios.get('/movies/search',{id: id})
-    .then((results)=>{this.setState({movies:results.data})})
+    axios.get(`/movies/search/${id}`)
+    .then((results)=>{
+      this.setState({movies:results.data})
+      console.log('state', this.state.movies)})
     .catch((error)=>{throw error;})
   }
 
@@ -45,7 +47,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getMovies(14);
+    this.getMovies(16);
   }
 
   render () {
