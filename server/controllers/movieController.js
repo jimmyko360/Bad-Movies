@@ -62,7 +62,7 @@ module.exports = {
 
   deleteMovie: (req, res) => {
     //this will use the model layer
-    movieModel.deleteFromFavorites([req.body.id], (err, results) => {
+    movieModel.deleteFromFavorites([req.params.id], (err, results) => {
       if (err) {
         throw err;
       } else {

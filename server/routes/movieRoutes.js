@@ -8,7 +8,9 @@ const movieController = require('../controllers/movieController.js');
 router.get('/search/:id', movieController.getSearch)
 router.get('/genres', movieController.getGenres)
 router.post('/save', movieController.saveMovie)
-router.delete('/delete', movieController.deleteMovie)
+
+//added path variable to route
+router.delete('/delete/:id', movieController.deleteMovie)
 
 //how would I accomplish this without a get request to the database?
 router.get('/save', movieController.getFavorites)

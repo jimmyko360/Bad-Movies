@@ -32,7 +32,7 @@ class App extends React.Component {
   saveMovie(movie) {
     axios.post('/movies/save', {
       poster_path: movie.poster_path,
-      original_title: JSON.stringify(movie.original_title),
+      original_title: movie.original_title,
       release_date: movie.release_date,
       vote_average: movie.vote_average,
       genre_ids: JSON.stringify(movie.genre_ids),
@@ -45,9 +45,9 @@ class App extends React.Component {
   }
 
   deleteMovie(movie) {
-    axios.delete('/movies/delete', {id: movie.id})
+    axios.delete(`/movies/delete/${movie.id}`)
     .then(axios.get('/movies/save')
-    .then((results)=>{this.setState({favorites:results.data})})
+    .then((results)=>{console.log('delete favorite:', results); this.setState({favorites:results.data})})
     .catch(err=>{throw err}))
     .catch(err=>{throw err})
   }
