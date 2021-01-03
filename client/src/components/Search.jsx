@@ -35,9 +35,6 @@ class Search extends React.Component {
         <button onClick={() => {this.props.swapFavorites()}}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
         <br/><br/>
 
-        {/* Make the select options dynamic from genres !!! */}
-        {/* How can you tell which option has been selected from here? */}
-
         <select id='selectedgenre'>
           {/* you have to return the output of each map iteration */}
           {/* onClick does not work on options tags? */}
