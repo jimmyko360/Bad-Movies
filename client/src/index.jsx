@@ -50,6 +50,7 @@ class App extends React.Component {
     .then((results)=>{console.log('delete favorite:', results); this.setState({favorites:results.data})})
     .catch(err=>{throw err}))
     .catch(err=>{throw err})
+    //loop through favorites state array and delete movie based on ID
   }
 
   swapFavorites() {

@@ -5,7 +5,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      genres: [],
+      genres: []
+      //set an onChange handler to set state to selected genre
     };
     this.getGenres = this.getGenres.bind(this);
     this.getGenreId = this.getGenreId.bind(this);

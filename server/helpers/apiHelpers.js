@@ -27,6 +27,7 @@ module.exports = {
   getMoviesByGenre: function(genreID, callback) {
     axios.get('https://api.themoviedb.org/3/discover/movie?api_key=3153257f2189729bf3d0a8c223306f17&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1', {
       params: {
+        // api_key:3153257f2189729bf3d0a8c223306f17
         with_genres: genreID
       }
     })

@@ -38,7 +38,6 @@ class Movies extends React.Component {
           </li>
         ))
         }
-
       </ul>
     );
   }
